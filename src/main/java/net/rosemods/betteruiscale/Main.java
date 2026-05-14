@@ -30,7 +30,7 @@ public class Main implements ClientModInitializer {
         ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new SimpleSynchronousResourceReloadListener() {
             @Override
             public Identifier getFabricId() {
-                return new Identifier(MODID, "shader-injector");
+                return Identifier.of(MODID, "shader-injector");
             }
 
             @Override
