@@ -1,8 +1,7 @@
 buildscript {
     repositories {
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            url = "https://maven.fabricmc.net/"
         }
         mavenCentral()
     }
@@ -14,10 +13,11 @@ plugins {
 }
 
 loom {
+    // This looks for the file in src/main/resources/
     accessWidenerPath = file("src/main/resources/betteruiscale.accesswidener")
 }
 
-// Minecraft 1.21.1 MUST use Java 21
+// Minecraft 1.21.1 and Java 21 Requirements
 sourceCompatibility = JavaVersion.VERSION_21
 targetCompatibility = JavaVersion.VERSION_21
 
@@ -45,10 +45,11 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
+    // Basic Fabric Mod Dependencies
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-    // Sodium compatibility
+    // Sodium Support
     modCompileOnly "maven.modrinth:sodium:${project.sodium_version}"
 }
 
@@ -62,7 +63,7 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    // Set to 21 for 1.21.1 compatibility
+    // Release must match Java 21
     it.options.release = 21
 }
 
