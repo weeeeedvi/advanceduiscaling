@@ -26,11 +26,14 @@ public record MaxSuppliableIntSliderCallbacks(int minInclusive, IntSupplier maxS
 
     @Override
     public Codec<Integer> codec() {
-        return Codecs.validate(Codec.INT, value -> {
-            int i = this.encodableMaxInclusive + 1;
-            return value.compareTo(this.minInclusive) >= 0 && value.compareTo(i) <= 0 ? DataResult.success(value) : DataResult.error(() -> {
-                return "Value " + value + " outside of range [" + this.minInclusive + ":" + i + "]";
-            }, value);
-        });
+        return Codec.INT.comapFlatMap(
+            value -> {
+                int i = this.encodableMaxInclusive + 1;
+                return value.compareTo(this.minInclusive) >= 0 && value.compareTo(i) <= 0 
+                    ? DataResult.success(value) 
+                    : DataResult.error(() -> "Value " + value + " outside of range [" + this.minInclusive + ":" + i + "]", value);
+            },
+            Integer::new
+        );
     }
 }
