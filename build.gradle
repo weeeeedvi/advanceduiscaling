@@ -12,18 +12,17 @@ plugins {
     id 'maven-publish'
 }
 
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
 loom {
     // This looks for the file in src/main/resources/
     accessWidenerPath = file("src/main/resources/betteruiscale.accesswidener")
 }
-
-// Minecraft 1.21.1 and Java 21 Requirements
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_21
-
-archivesBaseName = project.archives_base_name
-version = project.mod_version + "-" + project.minecraft_version
-group = project.maven_group
 
 repositories {
     maven {
@@ -41,15 +40,16 @@ repositories {
 }
 
 dependencies {
+    // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Basic Fabric Mod Dependencies
+    // Fabric API
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-    // Sodium Support
+    // Sodium compatibility
     modCompileOnly "maven.modrinth:sodium:${project.sodium_version}"
 }
 
@@ -63,12 +63,15 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.encoding = "UTF-8"
-    // Release must match Java 21
+    // Release must match Java 21 for 1.21.1
     it.options.release = 21
 }
 
 java {
+    // Minecraft 1.21.1 and Java 21 Requirements
     withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -77,17 +80,14 @@ jar {
     }
 }
 
+// configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            from components.java
         }
     }
     repositories {
+        // Add repositories to publish to here.
     }
 }
