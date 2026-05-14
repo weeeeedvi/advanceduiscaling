@@ -1,16 +1,16 @@
 package net.rosemods.betteruiscale;
 
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.GameOptionsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.OptionListWidget;
-import net.minecraft.client.option.GameOptionsScreen;
 import net.minecraft.client.option.SimpleOption;
 import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 
 public class ConfigScreen
-    extends Screen {
+    extends Screen implements GameOptionsScreen {
     protected final Screen parent;
     protected final Config config;
     private OptionListWidget list;
@@ -23,7 +23,7 @@ public class ConfigScreen
 
     @Override
     protected void init() {
-        list = new OptionListWidget(client, 25, new GameOptionsScreen(parent, client.options));
+        list = new OptionListWidget(client, width, height - 64, 32, 25, this);
         list.addAll(config.getOptions().values().toArray(SimpleOption[]::new));
         addSelectableChild(list);
         addDrawableChild(ButtonWidget.builder(ScreenTexts.DONE, button -> {
@@ -50,6 +50,6 @@ public class ConfigScreen
     }
 
     public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackgroundTexture();
+        this.renderBackgroundTexture(context);
     }
 }

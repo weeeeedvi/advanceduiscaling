@@ -5,7 +5,6 @@ import com.mojang.serialization.DataResult;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.option.SimpleOption;
-import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.Optional;
