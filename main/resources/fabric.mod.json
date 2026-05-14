@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "advanced-ui-scale",
+  "version": "${version}",
+  "name": "Advanced UI Scaling",
+  "description": "Adds incremental UI scaling to Minecraft 1.21.1!",
+  "authors": [
+    "Rose",
+    "Qendolin"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Qendolin/BetterUIScale",
+    "sources": "https://github.com/Qendolin/BetterUIScale",
+    "issues": "https://github.com/Qendolin/BetterUIScale/issues"
+  },
+  "license": "CC0-1.0",
+  "icon": "assets/betteruiscale/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [ "net.rosemods.betteruiscale.Main" ],
+    "modmenu": [ "net.rosemods.betteruiscale.ModMenuIntegration" ]
+  },
+  "mixins": [
+    "betteruiscale.mixins.json"
+  ],
+  "accessWidener": "betteruiscale.accesswidener",
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "recommends": {
+    "modmenu": "*"
+  },
+  "suggests": {
+    "vulkanmod": "*"
+  }
+}
