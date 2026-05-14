@@ -26,7 +26,7 @@ public record MaxSuppliableIntSliderCallbacks(int minInclusive, IntSupplier maxS
 
     @Override
     public Codec<Integer> codec() {
-        return Codecs.validate(Codec.INT, (value) -> {
+        return Codecs.validate(Codec.INT, value -> {
             int i = this.encodableMaxInclusive + 1;
             return value.compareTo(this.minInclusive) >= 0 && value.compareTo(i) <= 0 ? DataResult.success(value) : DataResult.error(() -> {
                 return "Value " + value + " outside of range [" + this.minInclusive + ":" + i + "]";
